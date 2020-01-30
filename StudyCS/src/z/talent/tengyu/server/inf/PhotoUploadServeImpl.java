@@ -22,7 +22,6 @@ import com.qcloud.cos.model.PutObjectResult;
 import com.qcloud.cos.model.StorageClass;
 import com.qcloud.cos.region.Region;
 
-import z.talent.tengyu.mapper.PhotoMapper;
 import z.talent.tengyu.server.PhotoUploadServe;
 
 @Service("PhotoUploadServeImpl")
@@ -30,13 +29,8 @@ import z.talent.tengyu.server.PhotoUploadServe;
 @Transactional
 public class PhotoUploadServeImpl implements PhotoUploadServe {
 	
-	@Autowired
-	private PhotoMapper photoMapper;
-	private static final String pathRoot = "C:\\tengyu";
-	
-	//获取最大照片
-	public int  getNumber() {return photoMapper.getNumber();}
-	
+
+	private static final String pathRoot = "C:\\tengyu\\";
 	
 	//转文件
 	public String transportFile(MultipartFile file) throws IOException {
@@ -54,6 +48,7 @@ public class PhotoUploadServeImpl implements PhotoUploadServe {
 			return pathRoot+path;
 			
 		}
+		//System.err.println("--------------------\n"+path);
 		return path;
 	}
 			 
@@ -70,13 +65,14 @@ public class PhotoUploadServeImpl implements PhotoUploadServe {
 		COSClient cosClient = new COSClient(cred, clientConfig);
 		// 存储桶名称，格式为：BucketName-APPID
 		String bucketName = "yss-1253784481";
-		String name = "000"+photoMapper.getNumber();
+		String name = UUID.randomUUID().toString();
 		// 以下是向这个存储桶上传一个文件的示例
-		String key = "loukong/"+name+".png";
+		String key = "studycs/"+name+".png";
 		File localFile = new File(path);
 		PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key, localFile);
 		// 设置存储类型：标准存储（Standard）, 低频存储（Standard_IA）和归档存储（ARCHIVE）。默认是标准存储（Standard）
 		putObjectRequest.setStorageClass(StorageClass.Standard);
+		String urlString = "";
 		try {
 		    PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
 		    // putobjectResult 会返回文件的 etag
@@ -88,12 +84,10 @@ public class PhotoUploadServeImpl implements PhotoUploadServe {
 		    e.printStackTrace();
 		    return  "{\"result\":\"fail\"}";
 		} finally {
-			if(localFile.exists()) {localFile.delete();}
+			//if(localFile.exists()) {localFile.delete();}
 		}
-
 		// 关闭客户端
 		cosClient.shutdown();
-		photoMapper.updateNumber(1);
-		return "{\"result\":\"ok\"}";
+		return "{\"result\":\"ok\",\"url\":\"https://yss-1253784481.cos.ap-shanghai.myqcloud.com/"+key+"\"}";
 	}
 }

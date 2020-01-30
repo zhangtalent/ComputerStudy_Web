@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="z.talent.tengyu.mapper.AdminMapper">
+
+
+	<update id="updatePassword" parameterType="z.talent.tengyu.bean.AdminUser">
+		update 
+			admin 
+		set password = #{password}
+		where
+			uuid = #{uuid}
+	</update>
+
+
+	<select id="getMember" resultType="int">
+		select
+			count(*) 
+		from 
+			admin
+		where
+			username = #{username} 
+			and
+			password = #{password}	 
+		limit 1
+	</select>
+
+	
+</mapper>  

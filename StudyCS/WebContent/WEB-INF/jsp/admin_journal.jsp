@@ -100,7 +100,7 @@
 	   		<th>
 	   		<c:out value="${data.time}"/><p>
 	   		</th>
-	   		<th><a href='show?uuid=<c:out value="${data.uuid}"/>'>
+	   		<th><a href='journal/show?uuid=<c:out value="${data.uuid}"/>'>
 	   		<c:out value="${data.title}"/></a><p>
 	   		</th>
 	   		<th>

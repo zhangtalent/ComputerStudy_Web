@@ -228,7 +228,7 @@
 	
 	
 	function preview(){
-		document.getElementById("previewDiv").innerHTML = document.getElementById("content").value.replace(/\n/g, '<br>').replace(/ /g, '&nbsp;');
+		document.getElementById("previewDiv").innerHTML = document.getElementById("content").value.replace(/\n/g, '<br>');
 		layui.use('code', function(){ //加载code模块
 			  layui.code(); //引用code方法
 		});

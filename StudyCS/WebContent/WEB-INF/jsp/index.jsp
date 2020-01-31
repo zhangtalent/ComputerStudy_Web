@@ -80,7 +80,7 @@
 			    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
 			    <div class="layui-timeline-content layui-text">
 			      <h3 class="layui-timeline-title"><c:out value="${data.time}"/></h3>
-			      <pre><c:out value="${data.title}"/><a href='show?uuid=<c:out value="${data.uuid}"/>'>查看</a>
+			      <pre><c:out value="${data.title}"/><a href='show?uuid=<c:out value="${data.uuid}"/>'>-查看</a>
 			      </pre>
 			      
 			    </div>
@@ -88,7 +88,20 @@
 			</c:forEach>
 			  
 		</ul>
-
+		<!-- 反野按钮 -->
+		<c:if test="${previous > -1}" var="canup" scope="session">
+   			<a href='?page=<c:out value="${previous}"/>'><button type="button" class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon"></i></button></a>
+		</c:if>
+		<c:if test="${not canup}">
+   			<button type="button" class="layui-btn layui-btn-sm layui-btn-primary layui-btn-disabled"><i class="layui-icon"></i></button>
+		</c:if>
+	
+		<c:if test="${next > 0}" var="cannext" scope="session">
+   			<a href='?page=<c:out value="${next}"/>'><button type="button" class="layui-btn layui-btn-sm layui-btn-primary "><i class="layui-icon"></i></button></a>
+		</c:if>
+		<c:if test="${not cannext}">
+	   		<button type="button" class="layui-btn layui-btn-sm layui-btn-primary layui-btn-disabled"><i class="layui-icon"></i></button>
+		</c:if>
     </div>
     
     

@@ -75,7 +75,7 @@
         
 		
  
- 		<div id="previewDiv" style="margin-left:5%;margin-right:5%;"><br>${data.journalcontent.replaceAll("\\n","<br>").replaceAll(" ","&nbsp;")}</div>
+ 		<div id="previewDiv" style="margin-left:5%;margin-right:5%;"><br>${data.journalcontent.replaceAll("\\n","<br>")}</div>
  
 <script>
 	//注意：导航 依赖 element 模块，否则无法进行功能性操作

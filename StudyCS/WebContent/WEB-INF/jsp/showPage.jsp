@@ -69,13 +69,11 @@
     
 
 
-		
-	    <div style="background-color: #FaFaFa; font-size:18pt;color: #000;padding:5%;font-weight:180;">${data.title}<br><i style="color:#4e4e4e;font-size:9pt;">Time:${data.time }</i></div>
+		<div id="showDiv">
+			<div style="background-color: #FaFaFa; font-size:18pt;color: #000;padding:5%;font-weight:180;">${data.title}<br><i style="color:#4e4e4e;font-size:9pt;">Time:${data.time }</i></div>
+	    	<div id="previewDiv" style="margin-left:5%;margin-right:5%;"><br>${data.journalcontent.replaceAll("\\n","<br>")}</div>
+		</div>
 	    
-        
-		
- 
- 		<div id="previewDiv" style="margin-left:5%;margin-right:5%;"><br>${data.journalcontent.replaceAll("\\n","<br>")}</div>
  
 <script>
 	//注意：导航 依赖 element 模块，否则无法进行功能性操作
@@ -197,6 +195,13 @@
 			  layui.code(); //引用code方法
 		});
 	}
+	
+	/*PC端居中缩小显示**/
+	if(document.body.clientWidth > 1300&&document.body.clientWidth>document.body.clientHeight){
+		document.getElementById("showDiv").style.width = "50%";
+		document.getElementById("showDiv").style.marginLeft = "25%";
+	}
+	
 </script>
 
 

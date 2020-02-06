@@ -80,7 +80,7 @@
 			    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
 			    <div class="layui-timeline-content layui-text">
 			      <h3 class="layui-timeline-title"><c:out value="${data.time}"/></h3>
-			      <pre><c:out value="${data.title}"/><a href='show?uuid=<c:out value="${data.uuid}"/>'>---|查看|</a>
+			      <pre><c:out value="${data.title}"/><a href='show?uuid=<c:out value="${data.uuid}"/>'><br>|查看|</a>
 			      </pre>
 			      
 			    </div>

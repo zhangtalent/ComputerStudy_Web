@@ -69,7 +69,7 @@
 <body>
     
     
-    <div id="headerdiv" style="padding-left:3%;padding-top:5%;margin-right:5%;position:absolute;top:0;z-index:3;overflow:hidden;max-height:100%;">
+    <div id="headerdiv" style="padding-left:3%;padding-top:5%;margin-right:5%;position:absolute;top:0;z-index:3;max-height:100%;">
         <div style = "text-align:center;font-size:11px;"><b style="font-size:21px;"></b><b style="font-size:19px;">Zhang Talent</b><br><div style="margin:0 auto;margin-top:8px;height:2px;width:50px;background-color:#4e4e4e;box-shadow:0 0 0px #4e4e4e;"></div></div>
         <img style="margin-top:5%;margin-left:7%;width:70px;max-height:70px;" src="https://yss-1253784481.cos.ap-shanghai.myqcloud.com/loukong/icon2.png">
 		
@@ -80,7 +80,7 @@
 			    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
 			    <div class="layui-timeline-content layui-text">
 			      <h3 class="layui-timeline-title"><c:out value="${data.time}"/></h3>
-			      <pre><c:out value="${data.title}"/><a href='show?uuid=<c:out value="${data.uuid}"/>'>-查看</a>
+			      <pre><c:out value="${data.title}"/><a href='show?uuid=<c:out value="${data.uuid}"/>'>---|查看|</a>
 			      </pre>
 			      
 			    </div>

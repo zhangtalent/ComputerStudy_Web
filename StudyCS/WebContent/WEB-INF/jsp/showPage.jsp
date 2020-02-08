@@ -8,6 +8,7 @@
 <script src="https://yss-1253784481.cos.ap-shanghai.myqcloud.com/loukong/resource/layui/layui.js"></script>
     <style>
         body,html{
+        	background-color:#f4f4f4;
             width:100%;
             height:100%;
             margin:0 auto;
@@ -200,6 +201,7 @@
 	if(document.body.clientWidth > 1300&&document.body.clientWidth>document.body.clientHeight){
 		document.getElementById("showDiv").style.width = "50%";
 		document.getElementById("showDiv").style.marginLeft = "25%";
+		document.getElementById("showDiv").style.backgroundColor = "#ffffff";
 	}
 	
 </script>

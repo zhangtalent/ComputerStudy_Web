@@ -72,6 +72,12 @@ public class Journal {
 		this.pic3 = pic3;
 	}
 
+	public Journal() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	
 	
 	
 	

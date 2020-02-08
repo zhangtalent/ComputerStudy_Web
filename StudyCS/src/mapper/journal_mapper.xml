@@ -17,6 +17,15 @@
 	    FROM journal
 	    WHERE uuid = #{uuid}
   	</select>
+  	
+  	
+  	<select id="getJournalByDate" resultType="z.talent.tengyu.bean.Journal">
+	    SELECT
+	          time
+	    FROM journal
+	    WHERE time like #{date}"%"
+	    group by time
+  	</select>
 
 	<delete id="DeleteJournalByUuid">
 	    DELETE 

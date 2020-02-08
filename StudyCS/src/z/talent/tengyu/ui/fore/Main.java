@@ -1,5 +1,8 @@
 package z.talent.tengyu.ui.fore;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 /**
@@ -12,8 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import z.talent.tengyu.bean.Journal;
 import z.talent.tengyu.mapper.JournalMapper;
@@ -43,4 +49,33 @@ public class Main {
 		model.addAttribute("data", journalMapper.getJournalByUuid(uuid));
 		return "showPage";
     }
+	/***
+	 * 
+	 * @param file
+	 * @param request
+	 * @return
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 * 
+	 * Ñ§Ï°Ê±¼äapi
+	 * 
+	 * 
+	 */
+	@ResponseBody
+	@PostMapping("/studydata")
+    public String AdminPage(@RequestParam(value="date",required=false) String date) {
+		//System.out.println(file.getName()+"----------------"+file.getOriginalFilename());
+		System.out.println(date);
+		ArrayList<Journal> arrayList = journalMapper.getJournalByDate(date);
+		String dataString = "";
+		
+		for (int i = 0; i < arrayList.size(); i++) {
+			dataString += arrayList.get(i).getTime()+"|";
+		}
+		int len = dataString.length();
+		dataString = len>1?dataString.substring(0, dataString.length()-1):"";
+        return "{\"result\":\"ok\",\"data\":\""+dataString+"\"}";
+    }
+	
+	
 }

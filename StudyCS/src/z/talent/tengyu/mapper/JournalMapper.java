@@ -15,5 +15,6 @@ public interface JournalMapper {
 	public boolean DeleteJournalByUuid(@Param("uuid")String uuid);
 	public int getJournalCounts();
 	public ArrayList<Journal> getJournalByDate(@Param("date")String date);
+	public boolean updateJournal(@Param("title")String title,@Param("journalcontent")String journalcontent,@Param("uuid")String uuid);
 }
 

@@ -93,6 +93,24 @@ public class AdminJournalManage {
 		//response.sendRedirect("journal");
 		return "redirect:journal";
     }
+	
+	//后台的日志修该主页
+		@GetMapping("/journal/edit")
+	    public String AdminJournalGetEdit(Model model,@RequestParam("uuid")String uuid) {
+			//System.err.println("正在被访问");
+	        //model.addAttribute("message", "Hello World!");
+			model.addAttribute("data", journalMapper.getJournalByUuid(uuid));
+	        return "admin_journal_edit";
+	    }
+	
+	//后台的日志添加主页
+		@PostMapping("/journal_edit")
+	    public String AdminJournalEdit(Model model,HttpServletResponse response,@RequestParam("uuid")String uuid,@RequestParam("title")String title,@RequestParam("content")String content) throws IOException {
+			//System.err.println("正在被访问");
+			boolean b = journalMapper.updateJournal(title, content, uuid);
+			//response.sendRedirect("journal");
+			return "redirect:journal";
+	    }
 
 	@ResponseBody
 	@PostMapping("/journal/upload_photo")

@@ -65,6 +65,15 @@
 	    VALUES
 	      (#{title},#{journalcontent}, #{time}, #{uuid}, #{pic1}, #{pic2},  #{pic3})
 	  </insert>
+	  
+	  <update id="updateJournal">
+	  	UPDATE journal
+        SET title = #{title} AND journalcontent = #{journalcontent}
+        WHERE uuid=#{uuid}
+	  
+	  
+	  
+	  </update>
 	
 
 	

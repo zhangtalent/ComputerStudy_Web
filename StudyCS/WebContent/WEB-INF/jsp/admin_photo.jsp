@@ -1,7 +1,7 @@
 <%@page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <html><head>
-<title>52镂空</title>
+<title>ZhangTalent</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="https://yss-1253784481.cos.ap-shanghai.myqcloud.com/loukong/resource/layui/css/layui.css">

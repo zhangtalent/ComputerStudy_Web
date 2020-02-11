@@ -2,7 +2,7 @@
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <html><head>
-<title>52镂空</title>
+<title>ZhangTalent</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <script type="text/javascript" src="https://yss-1253784481.cossh.myqcloud.com/js/jquery.js"></script>
@@ -101,7 +101,7 @@
 	   		<c:out value="${data.time}"/><p>
 	   		</th>
 	   		<th><a href='journal/show?uuid=<c:out value="${data.uuid}"/>'>
-	   		<c:out value="${data.title}"/></a><p>
+	   			<span class="layui-badge layui-bg-blue"><c:out value="${data.typename}"/></span><c:out value="${data.title}"/></a><p>
 	   		</th>
 	   		<th>
 	   		<button type="button" id="<c:out value="${data.uuid}"/>" onclick="del_jour('<c:out value="${data.uuid}"/>')" class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon"></i></button>

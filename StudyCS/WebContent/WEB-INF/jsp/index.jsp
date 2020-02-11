@@ -70,12 +70,20 @@
 </head>
 
 <body>
+	<ul class="layui-nav">
+			  <li class="layui-nav-item"><a href="admin/index"><i class="layui-icon"></i> 后台</a></li>
+			  <c:forEach items="${types}" var="data">
+			  		<li class="layui-nav-item">
+			      		 <a href="searchbytype?type=<c:out value="${data.keyid}"/>"><i class="layui-icon">&#xe600;</i><c:out value="${data.title}"/><span class="layui-badge"><c:out value="${data.counts}"/></span></a>
+			  		</li>
+				</c:forEach>
+		</ul>
     <div id="showDiv" style="height:100%;">
     
-	    
-	        <div style = "font-size:11px;vertical-align:middle;line-height:70px;background-color:#fff;">
-	        	<img style="margin-top:5%;margin-left:5%;width:70px;max-height:70px;" src="https://yss-1253784481.cos.ap-shanghai.myqcloud.com/loukong/icon2.png">
-	        	<b style="font-size:19px;">&nbsp;&nbsp;&nbsp;Zhang Talent</b>
+	    	
+	        <div style = "font-size:11px;height:70px;background-color:#fff;margin-top:25px;">
+	        	<img style="margin-left:5%;width:70px;height:70px;line-height:70px;" src="https://yss-1253784481.cos.ap-shanghai.myqcloud.com/loukong/icon2.png">
+	        	<b style="display:inline-block;vertical-align:middle;text-align:center;line-height:70px;font-size:19px;">&nbsp;&nbsp;&nbsp;Zhang Talent</b>
 	        	
 	        </div>
 	        
@@ -94,7 +102,7 @@
 				    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
 				    <div class="layui-timeline-content layui-text">
 				      <h3 class="layui-timeline-title"><c:out value="${data.time}"/></h3>
-				      <pre><c:out value="${data.title}"/><a href='show?uuid=<c:out value="${data.uuid}"/>'><br>|查看|</a>
+				      <pre><span class="layui-badge layui-bg-blue"><c:out value="${data.typename}"/></span><br><c:out value="${data.title}"/><a href='show?uuid=<c:out value="${data.uuid}"/>'><br>|查看|</a>
 				      </pre>
 				      
 				    </div>
@@ -102,20 +110,23 @@
 				</c:forEach>
 				  
 			</ul>
-			<!-- 反野按钮 -->
-			<c:if test="${previous > -1}" var="canup" scope="session">
-	   			<a href='?page=<c:out value="${previous}"/>'><button type="button" class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon"></i></button></a>
-			</c:if>
-			<c:if test="${not canup}">
-	   			<button type="button" class="layui-btn layui-btn-sm layui-btn-primary layui-btn-disabled"><i class="layui-icon"></i></button>
-			</c:if>
-		
-			<c:if test="${next > 0}" var="cannext" scope="session">
-	   			<a href='?page=<c:out value="${next}"/>'><button type="button" class="layui-btn layui-btn-sm layui-btn-primary "><i class="layui-icon"></i></button></a>
-			</c:if>
-			<c:if test="${not cannext}">
-		   		<button type="button" class="layui-btn layui-btn-sm layui-btn-primary layui-btn-disabled"><i class="layui-icon"></i></button>
-			</c:if>
+			<div style="margin-left:5%;">
+				<!-- 反野按钮 -->
+				<c:if test="${previous > -1}" var="canup" scope="session">
+		   			<a href='?page=<c:out value="${previous}"/>'><button type="button" class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon"></i></button></a>
+				</c:if>
+				<c:if test="${not canup}">
+		   			<button type="button" class="layui-btn layui-btn-sm layui-btn-primary layui-btn-disabled"><i class="layui-icon"></i></button>
+				</c:if>
+			
+				<c:if test="${next > 0}" var="cannext" scope="session">
+		   			<a href='?page=<c:out value="${next}"/>'><button type="button" class="layui-btn layui-btn-sm layui-btn-primary "><i class="layui-icon"></i></button></a>
+				</c:if>
+				<c:if test="${not cannext}">
+			   		<button type="button" class="layui-btn layui-btn-sm layui-btn-primary layui-btn-disabled"><i class="layui-icon"></i></button>
+				</c:if>
+			</div>
+			
 	    </div>
 
   
@@ -126,8 +137,8 @@
 	
 		/*PC端居中缩小显示**/
 		if(document.body.clientWidth > 1300&&document.body.clientWidth>document.body.clientHeight){
-			document.getElementById("showDiv").style.width = "40%";
-			document.getElementById("showDiv").style.marginLeft = "30%";
+			//document.getElementById("showDiv").style.width = "90%";
+			//document.getElementById("showDiv").style.marginLeft = "5%";
 			document.getElementById("showDiv").style.backgroundColor = "#ffffff";
 		}
 		var arr = {}
@@ -181,7 +192,11 @@
 				});
 			
 		}
-		
+		layui.use('element', function(){
+			  var element = layui.element;
+			  
+			  //…
+			});
 		function JsonAddKey(json){
 	        RiChengArr = {};
 	        ah = json.split("|")

@@ -69,9 +69,9 @@
 <body>
     
     
-	<ul class="layui-nav layui-bg-blue" >
+	<ul class="layui-nav" >
 	  <li class="layui-nav-item layui-this"><a href=""><i class="layui-icon">&#xe68e;</i> 后台</a></li>
-	  <li class="layui-nav-item"><a href="photo"><i class="layui-icon">&#xe60d;</i>相片</a></li>
+	  <li class="layui-nav-item"><a href="types"><i class="layui-icon">&#xe60e;</i>类别</a></li>
 	  <li class="layui-nav-item"><a href="journal"><i class="layui-icon">&#xe637;</i>日志</a></li>
 	  <li class="layui-nav-item" ><a  href=""><i class="layui-icon">&#x1006;</i>退出</a></li>
 	</ul>
@@ -80,10 +80,10 @@
 	  <div class="layui-card-header"><i class="layui-icon layui-icon-water"></i>数据使用情况</div>
 	  <br>
 	  <div class="layui-card-body">
-	  	<b>&nbsp;图片</b><br>
+	  	<b>&nbsp;类别</b><br>
 	    <div class="layui-progress layui-progress-big" style="margin-top:5px;"  lay-showPercent="true">
 	  		
-  			<div class="layui-progress-bar layui-bg-blue" lay-percent="80/100"></div>
+  			<div class="layui-progress-bar layui-bg-blue" lay-percent="${tcount}"></div>
 		</div>
 	  </div>
 	  
@@ -93,19 +93,13 @@
 	  	<b>&nbsp;日志</b><br>
 	    <div class="layui-progress layui-progress-big" style="margin-top:5px;"  lay-showPercent="true">
 	  		
-  			<div class="layui-progress-bar layui-bg-blue" lay-percent="50/100"></div>
+  			<div class="layui-progress-bar layui-bg-blue" lay-percent="${jcount}"></div>
 		</div>
 	  </div>
 	  
 	  
 	  <br>
-	  <div class="layui-card-body">
-	  	<b>&nbsp;视频</b><br>
-	    <div class="layui-progress layui-progress-big" style="margin-top:5px" lay-showPercent="true">
-	  		
-  			<div class="layui-progress-bar layui-bg-blue" lay-percent="60/100"></div>
-		</div>
-	  </div>
+	  
 	  
 	</div>
 	

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="z.talent.tengyu.mapper.JournalTypesMapper">
+
+
+	<select id="getTypeAndCount" resultType="z.talent.tengyu.bean.JournalTypes">
+	    select 
+	    	keyid,
+	    	title,
+	    	(select count(*) from journal where type = keyid)  as counts
+	    from journaltype 
+  	</select>
+  	
+  	<select id="getTypeBykeyid" resultType="z.talent.tengyu.bean.JournalTypes">
+	    select 
+	    	keyid,
+	    	title
+	    from journaltype
+	    where keyid = #{keyid} 
+  	</select>
+  	
+  	
+  	 <select id="getJournalTypeCounts" resultType="int">
+	    SELECT
+	      count(*)
+	    FROM journaltype 
+	  </select>
+  	
+  	<select id="getTypes" resultType="z.talent.tengyu.bean.JournalTypes">
+	    SELECT
+	          keyid,title
+	    FROM journaltype
+  	</select>
+
+	<delete id="DeleteTypeByUuid">
+	    DELETE 
+	    FROM journaltype
+	    WHERE uuid = #{uuid}
+  	</delete>
+
+	
+	 <insert id="insertType" parameterType="z.talent.tengyu.bean.JournalTypes">
+	    INSERT INTO journaltype
+	      (  keyid,
+	      	 title,
+	          uuid)
+	    VALUES
+	      (#{keyid},#{title},#{uuid})
+	  </insert>
+	  
+	  <update id="updateType">
+	  	UPDATE journaltype
+        SET title = #{title} , keyid = #{keyid}
+        WHERE uuid=#{uuid}
+	  
+	  
+	  
+	  </update>
+	
+
+	
+</mapper>  

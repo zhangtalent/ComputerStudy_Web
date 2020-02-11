@@ -1,7 +1,7 @@
 <%@page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
 <html><head>
 <title>ZhangTalent</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -69,61 +69,74 @@
 
 <body>
     
-    <ul class="layui-nav layui-bg-blue" >
-	  <li class="layui-nav-item"><a href="../index"><i class="layui-icon">&#xe68e;</i> 后台</a></li>
-	  <li class="layui-nav-item"><a href="../journal"><i class="layui-icon">&#xe637;</i>日志</a></li>
-	  <li class="layui-nav-item  layui-this"><a href="">写日志</a></li>
+	<ul class="layui-nav layui-bg-blue" >
+	  <li class="layui-nav-item"><a href=""><i class="layui-icon">&#xe68e;</i> 后台</a></li>
+	  <li class="layui-nav-item layui-this"><a href="types"><i class="layui-icon">&#xe60e;</i>类别</a></li>
+	  <li class="layui-nav-item"><a href="journal"><i class="layui-icon">&#xe637;</i>日志</a></li>
 	  <li class="layui-nav-item" ><a  href=""><i class="layui-icon">&#x1006;</i>退出</a></li>
 	</ul>
 
+ 	<fieldset class="layui-elem-field"style="margin-top:15px;width:98%;margin-left:1%;">
+  		<legend>添加类别</legend>
+		<div class="layui-field-box">
+		    <form class="layui-form layui-form-pane"  method="post" action="types_add">
+		        <div class="layui-form-item layui-form-text">
+		          <label class="layui-form-label">类别Id</label>
+		          <div class="layui-input-block">
+		            <input name="keyid" placeholder="赋予一个类别Id" class="layui-input"/>
+		          </div>
+		        </div>
+		        <div class="layui-form-item layui-form-text">
+		          <label class="layui-form-label">标题</label>
+		          <div class="layui-input-block">
+		            <input name="title" placeholder="请输入内容" class="layui-input"/>
+		          </div>
+		        </div>
+		        
+		        <div class="layui-form-item">
+		          <button class="layui-btn" type="submit" lay-submit="" lay-filter="formDemoPane">立即添加</button>
+		        </div>
+		        
+	      	</form>
+		</div>
+	</fieldset>
+	 
  
-	 <form class="layui-form layui-form-pane" style="margin-top:15px;width:90%;margin-left:5%;" method="post" action="../journal_edit">
-        
-
-        <input style="display:none;" name="uuid" value = "${data.uuid}" class="layui-input"/>
-        
-        <div class="layui-form-item layui-form-text">
-          <label class="layui-form-label">日志标题</label>
-          <div class="layui-input-block">
-            <input name="title" placeholder="请输入内容" value="${data.title}" class="layui-input"/>
-          </div>
-        </div>
-        
-        <div class="layui-form-item">
-        	<label class="layui-form-label">分类</label>
-		    <div class="layui-input-block">
-		      <select name="type">
-		        <option value="${data.type}">${data.typename}</option>
-				<c:forEach items="${datas}" var="data1">
-					<option value="${data1.keyid}">${data1.title}</option>
-				</c:forEach>
-		      </select>
-		    </div>
-		 </div>
-        
-        
-        <p>
-	        <button type="button" onclick="insertText(1)" class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe62b;</i></button>
-	        <button type="button" onclick="insertText(2)"  class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe646;</i></button>
-	        <button type="button" onclick="insertText(3)"  class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe644;</i></button>
-	        <button type="button" onclick="insertText(6)"  class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe64c;</i></button>
-	        <button type="button" onclick="insertText(7)"  class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe66e;</i></button>
-	        <button type="button" id="uploadpic" class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe60d;</i></button>
-	        <button type="button" onclick="insertText(5)"  class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe64e;</i></button>
-	    </p>
-      	<br>
-        <div class="layui-form-item layui-form-text">
-          <label class="layui-form-label">日志内容</label>
-          <div class="layui-input-block">
-            <textarea style="height:35%;word-wrap:normal;" id="content" name="content" value=""  placeholder="请输入内容" class="layui-textarea">${data.journalcontent}</textarea>
-          </div>
-        </div>
-        <div class="layui-form-item">
-          <button class="layui-btn" type="submit" lay-submit="" lay-filter="formDemoPane">立即提交</button><button class="layui-btn" type="button" onclick="preview()" lay-filter="formDemoPane">预览</button>
-        </div>
-      </form>
+	 <table class="layui-table" style="width:98%;margin-left:1%;">
+	
+		  <thead>
+		    <tr>
+		    <th>Id</th>
+		    <th>显示名</th>  
+		    <th>操作</th>  
+		    </tr> 
+		  </thead>
+		  <tbody id="tb">
+		    
+		    
+		    
+		    <c:forEach items="${datas}" var="data">
+		   		<tr>
+			   		<th>
+			   		<c:out value="${data.keyid}"/>
+			   		</th>
+			   		<th><c:out value="${data.title}"/>
+			   		</th>
+			   		<th>
+			   		<button type="button" id="<c:out value="${data.uuid}"/>" onclick="del_jour('<c:out value="${data.uuid}"/>')" class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon"></i></button>
+			   		
+			   		
+			   		</th>
+		   		</tr>	
+			</c:forEach>
+		    
+		    
+		  </tbody>
+	</table>
  
- 		<pre id="previewDiv" style="margin:5%;"></pre>
+ 
+ 
+ 		<div id="previewDiv" style="margin:5%;"></div>
  
 <script>
 	//注意：导航 依赖 element 模块，否则无法进行功能性操作
@@ -132,6 +145,23 @@
 	  console.log(element);
 	  //…
 	});
+	
+	
+	function del_jour(uuid){
+		$.ajax({ url:'deletejournaltype', 
+			type:'post',
+			 data:{uuid:uuid},
+			 async:false,
+			 success:function (response) {
+			     console.log(response);
+			     if(response.result != "fail"){alert("删除成功");window.location.reload()}
+			     else{alert("删除出错");}
+			      //后台返回的数据。这里给  抓页面元素填上去就OK了
+			 } 
+		})
+	}
+	
+	
 	//上传图片
 	layui.use('upload', function(){
 	  var upload = layui.upload;
@@ -250,12 +280,10 @@
 	        alert('未选择文本！');
 	}
 
-	layui.use('form', function(){
-		  
-	});
+	
 	
 	function preview(){
-		document.getElementById("previewDiv").innerHTML = document.getElementById("content").value;
+		document.getElementById("previewDiv").innerHTML = document.getElementById("content").value.replace(/\n/g, '<br>');
 		layui.use('code', function(){ //加载code模块
 			  layui.code(); //引用code方法
 		});

@@ -2,7 +2,7 @@ package z.talent.tengyu.bean;
 
 public class Journal {
 	
-	private String title,journalcontent,time,uuid,pic1,pic2,pic3;
+	private String title,journalcontent,time,uuid,pic1,pic2,pic3,type,typename;
 
 	public String getTitle() {
 		return title;
@@ -77,6 +77,51 @@ public class Journal {
 		// TODO Auto-generated constructor stub
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Journal(String title, String journalcontent, String time, String uuid, String pic1, String pic2, String pic3,
+			String type) {
+		super();
+		this.title = title;
+		this.journalcontent = journalcontent;
+		this.time = time;
+		this.uuid = uuid;
+		this.pic1 = pic1;
+		this.pic2 = pic2;
+		this.pic3 = pic3;
+		this.type = type;
+	}
+
+	public String getTypename() {
+		return typename;
+	}
+
+	public void setTypename(String typename) {
+		this.typename = typename;
+	}
+
+	public Journal(String title, String journalcontent, String time, String uuid, String pic1, String pic2, String pic3,
+			String type, String typename) {
+		super();
+		this.title = title;
+		this.journalcontent = journalcontent;
+		this.time = time;
+		this.uuid = uuid;
+		this.pic1 = pic1;
+		this.pic2 = pic2;
+		this.pic3 = pic3;
+		this.type = type;
+		this.typename = typename;
+	}
+
+	
+	
 	
 	
 	

@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import z.talent.tengyu.bean.Journal;
 import z.talent.tengyu.mapper.JournalMapper;
+import z.talent.tengyu.mapper.JournalTypesMapper;
 
 @Controller
 @RequestMapping("/")
@@ -30,6 +31,10 @@ public class Main {
 	
 	@Autowired
 	private JournalMapper journalMapper;
+	
+	@Autowired
+	JournalTypesMapper journalTypesMapper;
+	
 	@GetMapping("/")
     public String ProfileMain(Model model,@RequestParam(value = "page",required = false)Integer page) {
 		
@@ -39,9 +44,25 @@ public class Main {
 		int offset = page*10;
 		ArrayList<Journal> arg1 = journalMapper.getJournals(offset, 10);
 		model.addAttribute("datas", arg1);
+		model.addAttribute("types", journalTypesMapper.getTypeAndCount());
 		model.addAttribute("next", offset+10>counts?-1:page+1);
 		model.addAttribute("previous", page==0?-1:page-1);
 		return "index";
+    }
+	
+	@GetMapping("/searchbytype")
+    public String SearchByType(Model model,@RequestParam("type")String type,@RequestParam(value = "page",required = false)Integer page) {
+		
+		int counts = journalMapper.getJournalCountsByType(type);
+		page = page==null?0:page;
+		int offset = page*10;
+		ArrayList<Journal> arg1 = journalMapper.getJournalsByType(type,offset, 10);
+		model.addAttribute("datas", arg1);
+		model.addAttribute("types", journalTypesMapper.getTypeAndCount());
+		model.addAttribute("type", type);
+		model.addAttribute("next", offset+10>counts?-1:page+1);
+		model.addAttribute("previous", page==0?-1:page-1);
+		return "searchbytype";
     }
 	
 	@GetMapping("/show")
@@ -65,7 +86,7 @@ public class Main {
 	@PostMapping("/studydata")
     public String AdminPage(@RequestParam(value="date",required=false) String date) {
 		//System.out.println(file.getName()+"----------------"+file.getOriginalFilename());
-		System.out.println(date);
+		//System.out.println(date);
 		ArrayList<Journal> arrayList = journalMapper.getJournalByDate(date);
 		String dataString = "";
 		

@@ -1,7 +1,7 @@
 <%@page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <html><head>
-<title>52镂空</title>
+<title>ZhangTalent</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="https://yss-1253784481.cos.ap-shanghai.myqcloud.com/loukong/resource/layui/css/layui.css">
@@ -70,8 +70,17 @@
     
 
 
-		<div id="showDiv">
-			<div style="background-color: #FaFaFa; font-size:18pt;color: #000;padding:5%;font-weight:180;">${data.title}<br><i style="color:#4e4e4e;font-size:9pt;">Time:${data.time }</i></div>
+		<div id="showDiv" style = "background-color:#fff;">
+			<div style="font-size:15pt;color: #000;padding:5%;font-weight:180;">
+				<fieldset class="layui-elem-field">
+				  <legend>${data.time }</legend>
+				  <div class="layui-field-box"style="font-size:15pt;">
+				    	${data.title}
+				  </div>
+				  
+				</fieldset>
+			
+			</div>
 	    	<pre id="previewDiv" style="margin-left:5%;margin-right:5%;"><br>${data.journalcontent}</pre>
 		</div>
 	    

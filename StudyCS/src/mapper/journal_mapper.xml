@@ -13,7 +13,9 @@
 	          uuid,
 	          pic1,
 	          pic2,
-	          pic3
+	          pic3,
+	          type,
+	          (select title from journaltype where keyid = type)as typename
 	    FROM journal
 	    WHERE uuid = #{uuid}
   	</select>
@@ -32,6 +34,8 @@
 	    FROM journal
 	    WHERE uuid = #{uuid}
   	</delete>
+  	
+  	
 
 
 	  <select id="getJournals" resultType="z.talent.tengyu.bean.Journal">
@@ -42,14 +46,39 @@
 	          uuid,
 	          pic1,
 	          pic2,
-	          pic3
+	          pic3,
+	          type,
+	          (select title from journaltype where keyid = type)as typename
 	    FROM journal order by time  desc limit #{limit} offset #{offset} 
 	  </select>
+	  
+	  
+	  <select id="getJournalsByType" resultType="z.talent.tengyu.bean.Journal">
+	    SELECT
+		      title,
+		      journalcontent,
+	          time,
+	          uuid,
+	          pic1,
+	          pic2,
+	          pic3,
+	          type,
+	          (select title from journaltype where keyid = type)as typename
+	    FROM journal where type = #{type} order by time  desc limit #{limit} offset #{offset} 
+	  </select>
+	  
 	
 	 <select id="getJournalCounts" resultType="int">
 	    SELECT
 	      count(*)
 	    FROM journal 
+	  </select>
+	
+	<select id="getJournalCountsByType" resultType="int">
+	    SELECT
+	      count(*)
+	    FROM journal
+	    where type = #{type} 
 	  </select>
 	
 	
@@ -61,14 +90,14 @@
 	          uuid,
 	          pic1,
 	          pic2,
-	          pic3)
+	          pic3,type)
 	    VALUES
-	      (#{title},#{journalcontent}, #{time}, #{uuid}, #{pic1}, #{pic2},  #{pic3})
+	      (#{title},#{journalcontent}, #{time}, #{uuid}, #{pic1}, #{pic2},  #{pic3},  #{type})
 	  </insert>
 	  
 	  <update id="updateJournal">
 	  	UPDATE journal
-        SET title = #{title} , journalcontent = #{journalcontent}
+        SET title = #{title} , journalcontent = #{journalcontent} ,type = #{type}
         WHERE uuid=#{uuid}
 	  
 	  

@@ -1,7 +1,9 @@
 <%@page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
 <html><head>
-<title>52镂空</title>
+<title>ZhangTalent</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="https://yss-1253784481.cos.ap-shanghai.myqcloud.com/loukong/resource/layui/css/layui.css">
@@ -86,6 +88,20 @@
             <input name="title" placeholder="请输入内容" class="layui-input"/>
           </div>
         </div>
+        
+        <div class="layui-form-item">
+        	<label class="layui-form-label">分类</label>
+		    <div class="layui-input-block">
+		    
+		      <select name="type" lay-verify="required">
+		        <option value=""></option>
+				<c:forEach items="${datas}" var="data1">
+						<option value="${data1.keyid}">${data1.title}</option>
+				</c:forEach>
+		      </select>
+		    </div>
+		 </div>
+        
         
         <p>
 	        <button type="button" onclick="insertText(1)" class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe62b;</i></button>
@@ -235,7 +251,9 @@
 	        alert('未选择文本！');
 	}
 
-	
+	layui.use('form', function(){
+		  
+		});
 	
 	function preview(){
 		document.getElementById("previewDiv").innerHTML = document.getElementById("content").value.replace(/\n/g, '<br>');

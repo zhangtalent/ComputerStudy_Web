@@ -40,7 +40,9 @@ import com.qcloud.cos.model.StorageClass;
 import com.qcloud.cos.region.Region;
 
 import z.talent.tengyu.bean.Journal;
+import z.talent.tengyu.bean.JournalTypes;
 import z.talent.tengyu.mapper.JournalMapper;
+import z.talent.tengyu.mapper.JournalTypesMapper;
 import z.talent.tengyu.server.PhotoUploadServe;
 import z.talent.tengyu.server.inf.PhotoUploadServeImpl;
 
@@ -55,7 +57,8 @@ public class AdminJournalManage {
 	@Autowired
 	JournalMapper journalMapper;
 	//后台主页
-	
+	@Autowired
+	JournalTypesMapper journalTypesMapper;
 	
 	//后台的日志管理主页
 	@GetMapping("/journal")
@@ -77,18 +80,20 @@ public class AdminJournalManage {
     public String AdminJournalAdd(Model model) {
 		//System.err.println("正在被访问");
         //model.addAttribute("message", "Hello World!");
+		ArrayList<JournalTypes> arg1 = journalTypesMapper.getTypes();
+		model.addAttribute("datas", arg1);
         return "admin_journal_add";
     }
 	
 	//后台的日志添加主页
 	@PostMapping("/journal_add")
-    public String AdminJournalAddVerify(Model model,HttpServletResponse response,@RequestParam("title")String title,@RequestParam("content")String content) throws IOException {
+    public String AdminJournalAddVerify(Model model,HttpServletResponse response,@RequestParam("type")String type,@RequestParam("title")String title,@RequestParam("content")String content) throws IOException {
 		//System.err.println("正在被访问");
         //model.addAttribute("message", "Hello World!");
 		SimpleDateFormat format0 = new SimpleDateFormat("yyyy-MM-dd");
 		String time = format0.format(new Date());
 		String uuid = UUID.randomUUID().toString();
-		Journal journal = new Journal(title,content, time, uuid, "", "", "");
+		Journal journal = new Journal(title,content, time, uuid, "", "", "",type);
 		boolean b = journalMapper.insertJournal(journal);
 		//response.sendRedirect("journal");
 		return "redirect:journal";
@@ -99,15 +104,18 @@ public class AdminJournalManage {
 	    public String AdminJournalGetEdit(Model model,@RequestParam("uuid")String uuid) {
 			//System.err.println("正在被访问");
 	        //model.addAttribute("message", "Hello World!");
-			model.addAttribute("data", journalMapper.getJournalByUuid(uuid));
+			Journal journal = journalMapper.getJournalByUuid(uuid);
+			model.addAttribute("data", journal);
+			ArrayList<JournalTypes> arg1 = journalTypesMapper.getTypes();
+			model.addAttribute("datas", arg1);
 	        return "admin_journal_edit";
 	    }
 	
 	//后台的日志添加主页
 		@PostMapping("/journal_edit")
-	    public String AdminJournalEdit(Model model,HttpServletResponse response,@RequestParam("uuid")String uuid,@RequestParam("title")String title,@RequestParam("content")String content) throws IOException {
+	    public String AdminJournalEdit(Model model,HttpServletResponse response,@RequestParam("uuid")String uuid,@RequestParam("type")String type,@RequestParam("title")String title,@RequestParam("content")String content) throws IOException {
 			//System.err.println("正在被访问");
-			boolean b = journalMapper.updateJournal(title, content, uuid);
+			boolean b = journalMapper.updateJournal(title, content, uuid,type);
 			//response.sendRedirect("journal");
 			return "redirect:journal";
 	    }

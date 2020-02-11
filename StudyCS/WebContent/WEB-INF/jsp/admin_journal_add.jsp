@@ -91,6 +91,8 @@
 	        <button type="button" onclick="insertText(1)" class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe62b;</i></button>
 	        <button type="button" onclick="insertText(2)"  class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe646;</i></button>
 	        <button type="button" onclick="insertText(3)"  class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe644;</i></button>
+	         <button type="button" onclick="insertText(6)"  class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe64c;</i></button>
+	        <button type="button" onclick="insertText(7)"  class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe66e;</i></button>
 	        <button type="button" id="uploadpic" class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe60d;</i></button>
 	        <button type="button" onclick="insertText(5)"  class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe64e;</i></button>
 	    </p>
@@ -144,6 +146,10 @@
 			typename = "斜体文本"
 		}else if(type == 5){
 			typename = "代码文本"
+		}else if(type == 6){
+			typename = "链接文本"
+		}else if(type == 7){
+			typename = "引用文本"
 		}
 		layui.use('layer', function(){
 			  var layer = layui.layer;
@@ -166,6 +172,10 @@
 				    			InsertString("content","<i style='font-weight:200;'>"+document.getElementById("tv").value+"</i>")
 				    		}else if(type == 5){
 				    			InsertString("content","<pre class=\"layui-code\">"+document.getElementById("tv").value+"</pre>")
+				    		}else if(type == 6){
+				    			InsertString("content","<a style='font-weight:200;' href='"+document.getElementById("tv").value+"'>"+document.getElementById("tv").value+"</a>")
+				    		}else if(type == 7){
+				    			InsertString("content","<blockquote class='layui-elem-quote'>"+document.getElementById("tv").value+"</blockquote>")
 				    		}
 				        	document.getElementById("tv").value = '';
 			        		layer.close(index);

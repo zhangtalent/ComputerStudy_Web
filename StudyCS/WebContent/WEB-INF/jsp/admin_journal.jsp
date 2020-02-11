@@ -105,7 +105,7 @@
 	   		</th>
 	   		<th>
 	   		<button type="button" id="<c:out value="${data.uuid}"/>" onclick="del_jour('<c:out value="${data.uuid}"/>')" class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon"></i></button>
-	   		<button type="button" class="layui-btn layui-btn-sm layui-btn-primary"><a href = 'journal/editJournal?uuid=<c:out value="${data.uuid}"/>'><i class="layui-icon">&#xe60a;</i></a></button>
+	   		<a href = 'journal/edit?uuid=<c:out value="${data.uuid}"/>'><button type="button" class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe60a;</i></button></a>
 	   		
 	   		</th>
    		</tr>	

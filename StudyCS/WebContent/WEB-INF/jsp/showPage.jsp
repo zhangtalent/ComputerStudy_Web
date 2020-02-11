@@ -72,7 +72,7 @@
 
 		<div id="showDiv">
 			<div style="background-color: #FaFaFa; font-size:18pt;color: #000;padding:5%;font-weight:180;">${data.title}<br><i style="color:#4e4e4e;font-size:9pt;">Time:${data.time }</i></div>
-	    	<div id="previewDiv" style="margin-left:5%;margin-right:5%;"><br>${data.journalcontent.replaceAll("\\n","<br>")}</div>
+	    	<pre id="previewDiv" style="margin-left:5%;margin-right:5%;"><br>${data.journalcontent}</pre>
 		</div>
 	    
  

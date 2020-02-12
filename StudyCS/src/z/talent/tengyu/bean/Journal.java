@@ -2,7 +2,7 @@ package z.talent.tengyu.bean;
 
 public class Journal {
 	
-	private String title,journalcontent,time,uuid,pic1,pic2,pic3,type,typename;
+	private String title,journalcontent,time,uuid,pic1,pic2,pic3,type,typename,visitcount;
 
 	public String getTitle() {
 		return title;
@@ -118,6 +118,29 @@ public class Journal {
 		this.pic3 = pic3;
 		this.type = type;
 		this.typename = typename;
+	}
+
+	public String getVisitcount() {
+		return visitcount;
+	}
+
+	public void setVisitcount(String visitcount) {
+		this.visitcount = visitcount;
+	}
+
+	public Journal(String title, String journalcontent, String time, String uuid, String pic1, String pic2, String pic3,
+			String type, String typename, String visitcount) {
+		super();
+		this.title = title;
+		this.journalcontent = journalcontent;
+		this.time = time;
+		this.uuid = uuid;
+		this.pic1 = pic1;
+		this.pic2 = pic2;
+		this.pic3 = pic3;
+		this.type = type;
+		this.typename = typename;
+		this.visitcount = visitcount;
 	}
 
 	

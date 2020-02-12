@@ -67,29 +67,35 @@
 
 <body>
 		<div style="padding:5%;">
+			<fieldset class="layui-elem-field layui-field-title">
+			  <legend>后台管理</legend>
+			</fieldset>
 			
-	    <p style="color:#4e4e4e;font-size:30px;font-weight:200;">管理员登陆</p>
-		<hr class="layui-bg-cyan">
+			
+		  <form class="layui-form layui-form-pane" style="width:90%;margin-left:5%;" method="post" action="login">
+			<div class="layui-form-item">
+			  <label class="layui-form-label">用户名</label>
+			  <div class="layui-input-inline">
+				<input type="text" name="username" required="" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+			  </div>
+			</div>
+			<div class="layui-form-item">
+			  <label class="layui-form-label">密 码</label>
+			  <div class="layui-input-inline">
+				<input type="password" name="password" required="" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+			  </div>
+			  
+			</div>
+		   
+			<div class="layui-form-item">
+			  <button class="layui-btn" type="submit" lay-filter="formDemoPane">登陆</button>
+			</div>
+		  </form>
+			
+					  
+		
 		</div>
-		<form class="layui-form layui-form-pane" style="width:70%;margin-left:5%;" method="post" action="login">
-        <div class="layui-form-item">
-          <label class="layui-form-label">用户名</label>
-          <div class="layui-input-inline">
-            <input type="text" name="username" required="" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
-          </div>
-        </div>
-        <div class="layui-form-item">
-          <label class="layui-form-label">密 码</label>
-          <div class="layui-input-inline">
-            <input type="password" name="password" required="" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
-          </div>
-          
-        </div>
-       
-        <div class="layui-form-item">
-          <button class="layui-btn" type="submit" lay-filter="formDemoPane">登陆</button>
-        </div>
-      </form>
+		
 	
 	
 

@@ -75,13 +75,16 @@
 				<fieldset class="layui-elem-field">
 				  <legend>${data.time }</legend>
 				  <div class="layui-field-box"style="font-size:15pt;">
-				    	${data.title}
+				    	<span class="layui-badge layui-bg-blue">${data.typename}</span><br>${data.title}<br><span class="layui-badge layui-bg-blue">浏览:${data.visitcount}次</span><br>
 				  </div>
 				  
 				</fieldset>
 			
 			</div>
+			<br>
 	    	<pre id="previewDiv" style="margin-left:5%;margin-right:5%;"><br>${data.journalcontent}</pre>
+	    	
+	    	<br><br><br>
 		</div>
 	    
  

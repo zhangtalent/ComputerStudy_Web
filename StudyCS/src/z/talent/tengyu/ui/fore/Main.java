@@ -67,6 +67,7 @@ public class Main {
 	
 	@GetMapping("/show")
     public String ShowMain(Model model,@RequestParam("uuid")String uuid) {
+		journalMapper.updateJournalCount(uuid);
 		model.addAttribute("data", journalMapper.getJournalByUuid(uuid));
 		return "showPage";
     }

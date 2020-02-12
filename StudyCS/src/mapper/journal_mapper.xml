@@ -15,6 +15,7 @@
 	          pic2,
 	          pic3,
 	          type,
+	          visitcount,
 	          (select title from journaltype where keyid = type)as typename
 	    FROM journal
 	    WHERE uuid = #{uuid}
@@ -48,6 +49,7 @@
 	          pic2,
 	          pic3,
 	          type,
+	          visitcount,
 	          (select title from journaltype where keyid = type)as typename
 	    FROM journal order by time  desc limit #{limit} offset #{offset} 
 	  </select>
@@ -63,6 +65,7 @@
 	          pic2,
 	          pic3,
 	          type,
+	          visitcount,
 	          (select title from journaltype where keyid = type)as typename
 	    FROM journal where type = #{type} order by time  desc limit #{limit} offset #{offset} 
 	  </select>
@@ -98,6 +101,17 @@
 	  <update id="updateJournal">
 	  	UPDATE journal
         SET title = #{title} , journalcontent = #{journalcontent} ,type = #{type}
+        WHERE uuid=#{uuid}
+	  
+	  
+	  
+	  </update>
+	  
+	  
+	  
+	  <update id="updateJournalCount">
+	  	UPDATE journal
+        SET visitcount = visitcount+1
         WHERE uuid=#{uuid}
 	  
 	  

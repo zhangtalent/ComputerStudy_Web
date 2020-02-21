@@ -157,7 +157,7 @@ public class EnglishStudyController {
 		SimpleDateFormat format0 = new SimpleDateFormat("yyyy-MM-dd");
 		String time = format0.format(new Date());
 		
-		if(englishReadDataMapper.getEnglishReadDataByAudioIdAndUserId(pageid, "yss033tengyu520", time)>0) {
+		if(englishReadDataMapper.getEnglishReadDataByPageIdAndUserId(pageid, "yss033tengyu520", time)>0) {
 			
 			boolean del_ok = englishReadDataMapper.updateEnglishReadData(readtime, pageid, "yss033tengyu520", time);
 	        return del_ok == true ? "{\"result\":\"ok\"}": "{\"result\":\"fail\"}";

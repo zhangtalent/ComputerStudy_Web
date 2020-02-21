@@ -8,7 +8,7 @@ import z.talent.tengyu.bean.EnglishReadData;
 
 public interface EnglishReadDataMapper {
 	
-	public int getEnglishReadDataByAudioIdAndUserId(@Param("pageid")String pageid,@Param("userid")String userid,@Param("time")String time);
+	public int getEnglishReadDataByPageIdAndUserId(@Param("pageid")String pageid,@Param("userid")String userid,@Param("time")String time);
 	public ArrayList<EnglishReadData> getEnglishReadDatas(@Param("offset")int offset,@Param("limit")int limit);
 	public boolean insertEnglishReadData(EnglishReadData EnglishReadData);
 	public boolean DeleteEnglishReadDataByUuid(@Param("uuid")String uuid);

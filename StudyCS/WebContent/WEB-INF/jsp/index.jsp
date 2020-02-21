@@ -72,6 +72,7 @@
 <body>
 	<ul class="layui-nav">
 			  <li class="layui-nav-item"><a href="admin/index"><i class="layui-icon"></i> 后台</a></li>
+			  <li class="layui-nav-item"><a href="english/index"><i class="layui-icon">&#xe62c;</i> 每日英语</a></li>
 			  <c:forEach items="${types}" var="data">
 			  		<li class="layui-nav-item">
 			      		 <a href="searchbytype?type=<c:out value="${data.keyid}"/>"><i class="layui-icon">&#xe600;</i><c:out value="${data.title}"/><span class="layui-badge"><c:out value="${data.counts}"/></span></a>

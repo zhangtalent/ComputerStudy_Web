@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="z.talent.tengyu.mapper.EnglishPassageMapper">
+
+
+	<select id="getEnglishPassageByUuid" resultType="z.talent.tengyu.bean.EnglishPassage">
+	    SELECT
+	    	  title,
+	          content,
+	          createtime,
+	          uuid
+	    FROM englishpassage
+	    WHERE uuid = #{uuid}
+  	</select>
+  	
+
+	<delete id="DeleteEnglishPassageByUuid">
+	    DELETE 
+	    FROM englishpassage
+	    WHERE uuid = #{uuid}
+  	</delete>
+  	
+  	
+
+
+	  <select id="getEnglishPassages" resultType="z.talent.tengyu.bean.EnglishPassage">
+	    SELECT
+		      title,
+	          content,
+	          createtime,
+	          uuid
+	    FROM englishpassage
+	    order by createtime  desc limit #{limit} offset #{offset} 
+	  </select>
+	   
+	 <select id="getEnglishPassageCounts" resultType="int">
+	    SELECT
+	      count(*)
+	    FROM englishpassage 
+	  </select>
+	
+	  <insert id="insertEnglishPassage" parameterType="z.talent.tengyu.bean.EnglishPassage">
+	    INSERT INTO englishpassage
+	      (  title,
+	          content,
+	          createtime,
+	          uuid)
+	    VALUES
+	      (#{title}, #{content}, #{createtime}, #{uuid})
+	  </insert>  
+	
+</mapper>  

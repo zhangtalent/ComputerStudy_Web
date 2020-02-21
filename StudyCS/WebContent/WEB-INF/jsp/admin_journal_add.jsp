@@ -187,7 +187,7 @@
 				    		}else if(type == 3){
 				    			InsertString("content","<i style='font-weight:200;'>"+document.getElementById("tv").value+"</i>")
 				    		}else if(type == 5){
-				    			InsertString("content","<pre class=\"layui-code\">"+document.getElementById("tv").value+"</pre>")
+				    			InsertString("content","<pre class=\"layui-code\">"+document.getElementById("tv").value.replace(/</g,"&lt;")+"</pre>")
 				    		}else if(type == 6){
 				    			InsertString("content","<a style='font-weight:200;' href='"+document.getElementById("tv").value+"'>"+document.getElementById("tv").value+"</a>")
 				    		}else if(type == 7){
@@ -254,7 +254,7 @@
 	layui.use('form', function(){
 		  
 		});
-	
+
 	function preview(){
 		document.getElementById("previewDiv").innerHTML = document.getElementById("content").value.replace(/\n/g, '<br>');
 		layui.use('code', function(){ //加载code模块

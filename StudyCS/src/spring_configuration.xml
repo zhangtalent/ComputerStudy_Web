@@ -21,7 +21,7 @@
     <!-- 上次文件 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	    <property name="defaultEncoding" value="utf-8"/>
-	    <property name="maxUploadSize" value="#{1024*1024}"/>
+	    <property name="maxUploadSize" value="#{5*1024*1024}"/>
 	</bean>
 	<!-- 配置spring mybatis实务 -->
 	<bean id="transactionManager"
@@ -90,6 +90,7 @@
 			<mvc:exclude-mapping path="/admin/login" />
 			<bean class="z.talent.tengyu.interceptor.AdminInterceptor" />
 		</mvc:interceptor>
+		
 	</mvc:interceptors>
 
 </beans>

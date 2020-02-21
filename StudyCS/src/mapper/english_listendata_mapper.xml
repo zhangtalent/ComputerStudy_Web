@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="z.talent.tengyu.mapper.EnglishListenDataMapper">
+
+
+	<select id="getEnglishListenDataByAudioIdAndUserId" resultType="int">
+	    SELECT
+	    	  count(*)
+	    FROM englishlistendata
+	    WHERE audioid = #{audioid} and userid = #{userid}  and createtime = #{time}
+  	</select>
+  	
+
+	<delete id="DeleteEnglishListenDataByUuid">
+	    DELETE 
+	    FROM englishlistendata
+	    WHERE uuid = #{uuid}
+  	</delete>
+  	
+  	
+
+
+	<select id="getEnglishListenDatas" resultType="z.talent.tengyu.bean.EnglishListenData">
+	  SELECT
+	  	 sum(listentime) as listentime,
+	  	 max(rateofcorrect) as rateofcorrect,	
+	     createtime
+	  FROM englishlistendata group by createtime order by createtime  desc limit #{limit} offset #{offset} 
+	</select>
+
+	
+	 <select id="getEnglishListenDataCounts" resultType="int">
+	    SELECT
+	      count(*)
+	    FROM englishlistendata 
+	  </select>
+	
+	  <insert id="insertEnglishListenData" parameterType="z.talent.tengyu.bean.EnglishListenData">
+	    INSERT INTO englishlistendata
+	      (  audioid,
+	      	 listentime,
+	          createtime,
+	          uuid,
+	          rateofcorrect,
+	          userid)
+	    VALUES
+	      (#{audioid},#{listentime}, #{createtime}, #{uuid}, #{rateofcorrect}, #{userid})
+	  </insert>
+	  
+	  <update id="updateEnglishListenData">
+	  	UPDATE englishlistendata
+        SET rateofcorrect = #{rateofcorrect} , listentime = listentime+1 
+        WHERE audioid = #{audioid} and userid = #{userid}  and createtime = #{time}
+	  </update>
+	
+</mapper>  

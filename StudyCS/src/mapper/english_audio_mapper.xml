@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="z.talent.tengyu.mapper.EnglishAudioMapper">
+
+
+	<select id="getEnglishAudioByUuid" resultType="z.talent.tengyu.bean.EnglishAudio">
+	    SELECT
+	    	  title,
+	          audiourl,
+	          content,
+	          createtime,
+	          uuid
+	    FROM englishlisten
+	    WHERE uuid = #{uuid}
+  	</select>
+  	
+
+	<delete id="DeleteEnglishAudioByUuid">
+	    DELETE 
+	    FROM englishlisten
+	    WHERE uuid = #{uuid}
+  	</delete>
+  	
+  	
+
+
+	  <select id="getEnglishAudios" resultType="z.talent.tengyu.bean.EnglishAudio">
+	    SELECT
+		      title,
+	          audiourl,
+	          content,
+	          createtime,
+	          uuid
+	    FROM englishlisten
+	    order by createtime  desc limit #{limit} offset #{offset} 
+	  </select>
+	   
+	 <select id="getEnglishAudioCounts" resultType="int">
+	    SELECT
+	      count(*)
+	    FROM englishlisten 
+	  </select>
+	
+	  <insert id="insertEnglishAudio" parameterType="z.talent.tengyu.bean.EnglishAudio">
+	    INSERT INTO englishlisten
+	      (  title,
+	          audiourl,
+	          content,
+	          createtime,
+	          uuid)
+	    VALUES
+	      (#{title},#{audiourl}, #{content}, #{createtime}, #{uuid})
+	  </insert>  
+	
+</mapper>  

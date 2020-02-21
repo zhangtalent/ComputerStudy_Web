@@ -215,7 +215,11 @@
 		document.getElementById("showDiv").style.marginLeft = "25%";
 		document.getElementById("showDiv").style.backgroundColor = "#ffffff";
 	}
-	
+	layui.use('code', function(){ //加载code模块
+		layui.code({
+			encode: false //是否转义html标签。默认不开启
+		});
+	});
 </script>
 
 

@@ -17,4 +17,6 @@ public interface PhotoUploadServe {
 	public String transportFile(MultipartFile file) throws IOException;
 	
 	public String uploadToserve(String path);
+	
+	public String uploadAudioToserve(String path);
 }

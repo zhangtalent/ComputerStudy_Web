@@ -1,15 +1,15 @@
 <%@page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
 <html><head>
 <title>ZhangTalent</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="https://yss-1253784481.cos.ap-shanghai.myqcloud.com/loukong/resource/layui/css/layui.css">
 <script src="https://yss-1253784481.cos.ap-shanghai.myqcloud.com/loukong/resource/layui/layui.js"></script>
+<script type="text/javascript" src="https://yss-1253784481.cossh.myqcloud.com/js/jquery.js"></script>
     <style>
         body,html{
+        	background-color:#f4f4f4;
             width:100%;
             height:100%;
             margin:0 auto;
@@ -69,63 +69,54 @@
 
 <body>
     
-    <ul class="layui-nav layui-bg-blue" >
-	  <li class="layui-nav-item"><a href="../index"><i class="layui-icon">&#xe68e;</i> 后台</a></li>
-	  <li class="layui-nav-item"><a href="../journal"><i class="layui-icon">&#xe637;</i>日志</a></li>
-	  <li class="layui-nav-item  layui-this"><a href="">写日志</a></li>
-	  <li class="layui-nav-item" ><a  href=""><i class="layui-icon">&#x1006;</i>退出</a></li>
-	</ul>
 
- 
-	 <form class="layui-form layui-form-pane" style="margin-top:15px;width:90%;margin-left:5%;" method="post" action="../journal_edit">
-        
 
-        <input style="display:none;" name="uuid" value = "${data.uuid}" class="layui-input"/>
-        
-        <div class="layui-form-item layui-form-text">
-          <label class="layui-form-label">日志标题</label>
-          <div class="layui-input-block">
-            <input name="title" placeholder="请输入内容" value="${data.title}" class="layui-input"/>
-          </div>
-        </div>
-        
-        <div class="layui-form-item">
-        	<label class="layui-form-label">分类</label>
-		    <div class="layui-input-block">
-		      <select name="type">
-		        <option value="${data.type}">${data.typename}</option>
-				<c:forEach items="${datas}" var="data1">
-					<option value="${data1.keyid}">${data1.title}</option>
-				</c:forEach>
-		      </select>
-		    </div>
-		 </div>
-        
-        
-        <p>
-	        <button type="button" onclick="insertText(1)" class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe62b;</i></button>
-	        <button type="button" onclick="insertText(2)"  class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe646;</i></button>
-	        <button type="button" onclick="insertText(3)"  class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe644;</i></button>
-	        <button type="button" onclick="insertText(6)"  class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe64c;</i></button>
-	        <button type="button" onclick="insertText(7)"  class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe66e;</i></button>
-	        <button type="button" id="uploadpic" class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe60d;</i></button>
-	        <button type="button" onclick="insertText(5)"  class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe64e;</i></button>
-	    </p>
-      	<br>
-        <div class="layui-form-item layui-form-text">
-          <label class="layui-form-label">日志内容</label>
-          <div class="layui-input-block">
-            <textarea style="height:35%;word-wrap:normal;" id="content" name="content" value=""  placeholder="请输入内容" class="layui-textarea">${data.journalcontent}</textarea>
-          </div>
-        </div>
-        <div class="layui-form-item">
-          <button class="layui-btn" type="submit" lay-submit="" lay-filter="formDemoPane">立即提交</button><button class="layui-btn" type="button" onclick="preview()" lay-filter="formDemoPane">预览</button>
-        </div>
-      </form>
- 
- 		<pre id="previewDiv" style="margin:5%;"></pre>
+		<div id="showDiv" style = "background-color:#fff;">
+			<div style="font-size:15pt;color: #000;padding:5%;font-weight:180;">
+				<fieldset class="layui-elem-field">
+				  <legend>${data.createtime }</legend>
+				  <div class="layui-field-box"style="font-size:15pt;">
+				    	${data.title}<br>
+				  </div>
+				  
+				</fieldset>
+			
+			</div>
+			<br>
+	    	<pre id="previewDiv" style="margin-left:5%;margin-right:5%;"><br>${data.content}</pre>
+	    	
+	    	<br><br><br>
+		</div>
+	    
  
 <script>
+
+
+	var timepass = 0;
+	var correct = 0;
+	//开启计时器
+	var timeo = self.setInterval("updateData()",60000);
+	
+	var uuid = '${data.uuid}'
+	
+	function updateData(){
+			timepass += 1;
+			$.ajax({ url:'updatereaddata', 
+				type:'post',
+				 data:{pageid:uuid,readtime:timepass},
+				 async:false,
+				 success:function (response) {
+				     console.log(response);
+				     var obj =JSON.parse(response);
+				     if(obj.result != "fail"){console.log('update complete')}
+				     else{alert("出错");}
+				      //后台返回的数据。这里给  抓页面元素填上去就OK了
+				 } 
+			})
+		}
+
+
+
 	//注意：导航 依赖 element 模块，否则无法进行功能性操作
 	layui.use('element', function(){
 	  var element = layui.element;
@@ -161,10 +152,6 @@
 			typename = "斜体文本"
 		}else if(type == 5){
 			typename = "代码文本"
-		}else if(type == 6){
-			typename = "链接文本"
-		}else if(type == 7){
-			typename = "引用文本"
 		}
 		layui.use('layer', function(){
 			  var layer = layui.layer;
@@ -172,9 +159,8 @@
 					id:1,
 				        type: 1,
 				        title:typename,
-				        area: ['90%', 'auto'],
 				        content: ''+
-				        				'<textarea id="tv" style="word-wrap:normal;"  name="tv" placeholder="请输入内容" class="layui-textarea"></textarea>'+
+				        				'<textarea id="tv"  name="tv" placeholder="请输入内容" class="layui-textarea"></textarea>'+
 				        		''
 				        ,
 				        btn:['确定','取消'],
@@ -186,11 +172,7 @@
 				    		}else if(type == 3){
 				    			InsertString("content","<i style='font-weight:200;'>"+document.getElementById("tv").value+"</i>")
 				    		}else if(type == 5){
-				    			InsertString("content","<pre class=\"layui-code\">"+document.getElementById("tv").value.replace(/</g,"&lt;")+"</pre>")
-				    		}else if(type == 6){
-				    			InsertString("content","<a style='font-weight:200;' href='"+document.getElementById("tv").value+"'>"+document.getElementById("tv").value+"</a>")
-				    		}else if(type == 7){
-				    			InsertString("content","<blockquote class='layui-elem-quote'>"+document.getElementById("tv").value+"</blockquote>")
+				    			InsertString("content","<pre class=\"layui-code\">"+document.getElementById("tv").value+"</pre>")
 				    		}
 				        	document.getElementById("tv").value = '';
 			        		layer.close(index);
@@ -222,9 +204,6 @@
 	        tb.selectionEnd = newstart;
 	    }
 	}
-	
-	
-	
 	function GetSelection(tbid){
 
 	    var sel = '';
@@ -250,16 +229,25 @@
 	        alert('未选择文本！');
 	}
 
-	layui.use('form', function(){
-		  
-	});
-
+	
 	function preview(){
-		document.getElementById("previewDiv").innerHTML = document.getElementById("content").value;
+		document.getElementById("previewDiv").innerHTML = document.getElementById("content").value.replace(/\n/g, '<br>');
 		layui.use('code', function(){ //加载code模块
 			  layui.code(); //引用code方法
 		});
 	}
+	
+	/*PC端居中缩小显示**/
+	if(document.body.clientWidth > 1300&&document.body.clientWidth>document.body.clientHeight){
+		document.getElementById("showDiv").style.width = "50%";
+		document.getElementById("showDiv").style.marginLeft = "25%";
+		document.getElementById("showDiv").style.backgroundColor = "#ffffff";
+	}
+	layui.use('code', function(){ //加载code模块
+		layui.code({
+			encode: false //是否转义html标签。默认不开启
+		});
+	});
 </script>
 
 

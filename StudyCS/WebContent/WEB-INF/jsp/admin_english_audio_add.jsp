@@ -71,59 +71,47 @@
     
     <ul class="layui-nav layui-bg-blue" >
 	  <li class="layui-nav-item"><a href="../index"><i class="layui-icon">&#xe68e;</i> 后台</a></li>
-	  <li class="layui-nav-item"><a href="../journal"><i class="layui-icon">&#xe637;</i>日志</a></li>
-	  <li class="layui-nav-item  layui-this"><a href="">写日志</a></li>
+	  <li class="layui-nav-item"><a href="audio"><i class="layui-icon">&#xe637;</i>听力</a></li>
+	  <li class="layui-nav-item  layui-this"><a href="">新增听力</a></li>
 	  <li class="layui-nav-item" ><a  href=""><i class="layui-icon">&#x1006;</i>退出</a></li>
 	</ul>
 
  
-	 <form class="layui-form layui-form-pane" style="margin-top:15px;width:90%;margin-left:5%;" method="post" action="../journal_edit">
+	 <form class="layui-form layui-form-pane" style="margin-top:15px;width:90%;margin-left:5%;" method="post" action="audio_add">
         
 
-        <input style="display:none;" name="uuid" value = "${data.uuid}" class="layui-input"/>
+        
         
         <div class="layui-form-item layui-form-text">
-          <label class="layui-form-label">日志标题</label>
+          <label class="layui-form-label">标题</label>
           <div class="layui-input-block">
-            <input name="title" placeholder="请输入内容" value="${data.title}" class="layui-input"/>
+            <input name="title" placeholder="请输入内容" class="layui-input"/>
           </div>
         </div>
         
         <div class="layui-form-item">
-        	<label class="layui-form-label">分类</label>
-		    <div class="layui-input-block">
-		      <select name="type">
-		        <option value="${data.type}">${data.typename}</option>
-				<c:forEach items="${datas}" var="data1">
-					<option value="${data1.keyid}">${data1.title}</option>
-				</c:forEach>
-		      </select>
-		    </div>
+			<label class="layui-form-label">音频地址(勿手动输入)</label>
+			<div class="layui-input-block">
+			  <input id="audiourl" name="audiourl" placeholder="请输入内容" class="layui-input"/>
+			</div>
 		 </div>
         
         
-        <p>
-	        <button type="button" onclick="insertText(1)" class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe62b;</i></button>
-	        <button type="button" onclick="insertText(2)"  class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe646;</i></button>
-	        <button type="button" onclick="insertText(3)"  class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe644;</i></button>
-	        <button type="button" onclick="insertText(6)"  class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe64c;</i></button>
-	        <button type="button" onclick="insertText(7)"  class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe66e;</i></button>
-	        <button type="button" id="uploadpic" class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe60d;</i></button>
-	        <button type="button" onclick="insertText(5)"  class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe64e;</i></button>
-	    </p>
+        <p><button type="button" id="uploadpic" class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe60d;</i>上传音频</button>
+		</p>
       	<br>
         <div class="layui-form-item layui-form-text">
-          <label class="layui-form-label">日志内容</label>
+          <label class="layui-form-label">内容</label>
           <div class="layui-input-block">
-            <textarea style="height:35%;word-wrap:normal;" id="content" name="content" value=""  placeholder="请输入内容" class="layui-textarea">${data.journalcontent}</textarea>
+            <textarea style="height:35%;word-wrap:normal;" id="content" name="content" placeholder="请输入内容" class="layui-textarea"></textarea>
           </div>
         </div>
         <div class="layui-form-item">
-          <button class="layui-btn" type="submit" lay-submit="" lay-filter="formDemoPane">立即提交</button><button class="layui-btn" type="button" onclick="preview()" lay-filter="formDemoPane">预览</button>
+          <button class="layui-btn" type="submit" lay-submit="" lay-filter="formDemoPane">立即提交</button>
         </div>
       </form>
  
- 		<pre id="previewDiv" style="margin:5%;"></pre>
+ 		<div id="previewDiv" style="margin:5%;"></div>
  
 <script>
 	//注意：导航 依赖 element 模块，否则无法进行功能性操作
@@ -139,15 +127,15 @@
 	  //执行实例
 	  var uploadInst = upload.render({
 	    elem: '#uploadpic' //绑定元素
-	    ,url: 'upload_photo' //上传接口
+	    ,url: 'upload_file' //上传接口
 	    ,done: function(res){
 	      if(res.result == 'ok'){
-	    	  InsertString("content","<img style='width:100%;' src='"+res.url+"'/><br>")
+	    	  document.getElementById("audiourl").value = res.url;
 	      }
 	    }
 	    ,error: function(){
 	      //请求异常回调
-	    }
+	    },accept: 'file'
 	  });
 	});
 	//添加文本
@@ -252,10 +240,10 @@
 
 	layui.use('form', function(){
 		  
-	});
+		});
 
 	function preview(){
-		document.getElementById("previewDiv").innerHTML = document.getElementById("content").value;
+		document.getElementById("previewDiv").innerHTML = document.getElementById("content").value.replace(/\n/g, '<br>');
 		layui.use('code', function(){ //加载code模块
 			  layui.code(); //引用code方法
 		});

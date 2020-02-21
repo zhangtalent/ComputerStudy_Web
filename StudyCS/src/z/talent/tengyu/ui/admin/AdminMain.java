@@ -77,6 +77,7 @@ public class AdminMain {
 
 		if (adminMapper.getMember(username, password)>0) {
 			request.getSession().setAttribute("logined", true);
+			//request.getSession().setAttribute("userid", );
 			try {
 				repHttpServletResponse.sendRedirect("../admin/index");
 			} catch (IOException e) {

@@ -73,6 +73,8 @@
 	  <li class="layui-nav-item layui-this"><a href=""><i class="layui-icon">&#xe68e;</i> 后台</a></li>
 	  <li class="layui-nav-item"><a href="types"><i class="layui-icon">&#xe60e;</i>类别</a></li>
 	  <li class="layui-nav-item"><a href="journal"><i class="layui-icon">&#xe637;</i>日志</a></li>
+	  <li class="layui-nav-item"><a href="english/audio"><i class="layui-icon">&#xe60e;</i>英语听力</a></li>
+	  <li class="layui-nav-item"><a href="english/read"><i class="layui-icon">&#xe637;</i>英语阅读</a></li>
 	  <li class="layui-nav-item" ><a  href=""><i class="layui-icon">&#x1006;</i>退出</a></li>
 	</ul>
 	

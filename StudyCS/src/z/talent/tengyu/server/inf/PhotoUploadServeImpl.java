@@ -32,16 +32,16 @@ public class PhotoUploadServeImpl implements PhotoUploadServe {
 
 	private static final String pathRoot = "C:\\tengyu\\";
 	
-	//×ªÎÄ¼ş
+	//è½¬æ–‡ä»¶
 	public String transportFile(MultipartFile file) throws IOException {
 		
 		String path="";
 		if(!file.isEmpty()){
-			//Éú³Éuuid×÷ÎªÎÄ¼şÃû³Æ
+			//ç”Ÿæˆuuidä½œä¸ºæ–‡ä»¶åç§°
 			String uuid = UUID.randomUUID().toString().replaceAll("-","");
-			//»ñµÃÎÄ¼şÀàĞÍ£¨¿ÉÒÔÅĞ¶ÏÈç¹û²»ÊÇÍ¼Æ¬£¬½ûÖ¹ÉÏ´«£©
+			//è·å¾—æ–‡ä»¶ç±»å‹ï¼ˆå¯ä»¥åˆ¤æ–­å¦‚æœä¸æ˜¯å›¾ç‰‡ï¼Œç¦æ­¢ä¸Šä¼ ï¼‰
 			String contentType=file.getContentType();
-			//»ñµÃÎÄ¼şºó×ºÃû³Æ
+			//è·å¾—æ–‡ä»¶åç¼€åç§°
 			String SurName=contentType.substring(contentType.indexOf("/")+1);
 			path=""+uuid+"."+SurName;
 			file.transferTo(new File(pathRoot+path));
@@ -55,30 +55,30 @@ public class PhotoUploadServeImpl implements PhotoUploadServe {
 	
 	public String uploadToserve(String path) {
 		
-		//ÉÏµ½ÌÚÑ¶ÔÆcdn
+		//ä¸Šåˆ°è…¾è®¯äº‘cdn
 		/**
 		 * */
 		 
-		COSCredentials cred = new BasicCOSCredentials("AKIDHNFuLXiCdojOnweRowoQs78uRjmaFUaQ", "jEUVHo69xVnpa5KJ3XliPpzsVszrTpvr");
-		// ²ÉÓÃÁËĞÂµÄ region Ãû×Ö£¬¿ÉÓÃ region µÄÁĞ±í¿ÉÒÔÔÚ¹ÙÍøÎÄµµÖĞ»ñÈ¡£¬Ò²¿ÉÒÔ²Î¿¼ÏÂÃæµÄ XML SDK ºÍ JSON SDK µÄµØÓò¶ÔÕÕ±í
+		COSCredentials cred = new BasicCOSCredentials("***", "***");
+		// é‡‡ç”¨äº†æ–°çš„ region åå­—ï¼Œå¯ç”¨ region çš„åˆ—è¡¨å¯ä»¥åœ¨å®˜ç½‘æ–‡æ¡£ä¸­è·å–ï¼Œä¹Ÿå¯ä»¥å‚è€ƒä¸‹é¢çš„ XML SDK å’Œ JSON SDK çš„åœ°åŸŸå¯¹ç…§è¡¨
 		ClientConfig clientConfig = new ClientConfig(new Region("ap-shanghai"));
 		COSClient cosClient = new COSClient(cred, clientConfig);
-		// ´æ´¢Í°Ãû³Æ£¬¸ñÊ½Îª£ºBucketName-APPID
+		// å­˜å‚¨æ¡¶åç§°ï¼Œæ ¼å¼ä¸ºï¼šBucketName-APPID
 		String bucketName = "yss-1253784481";
 		String pString = path.replaceAll("\\\\", "/");
 		String[] nameStrings = pString.split("/");
 		String name = UUID.randomUUID().toString();
-		// ÒÔÏÂÊÇÏòÕâ¸ö´æ´¢Í°ÉÏ´«Ò»¸öÎÄ¼şµÄÊ¾Àı
+		// ä»¥ä¸‹æ˜¯å‘è¿™ä¸ªå­˜å‚¨æ¡¶ä¸Šä¼ ä¸€ä¸ªæ–‡ä»¶çš„ç¤ºä¾‹
 		System.err.println(nameStrings[nameStrings.length-1]);
 		String key = "studycs/"+nameStrings[nameStrings.length-1];
 		File localFile = new File(path);
 		PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key, localFile);
-		// ÉèÖÃ´æ´¢ÀàĞÍ£º±ê×¼´æ´¢£¨Standard£©, µÍÆµ´æ´¢£¨Standard_IA£©ºÍ¹éµµ´æ´¢£¨ARCHIVE£©¡£Ä¬ÈÏÊÇ±ê×¼´æ´¢£¨Standard£©
+		// è®¾ç½®å­˜å‚¨ç±»å‹ï¼šæ ‡å‡†å­˜å‚¨ï¼ˆStandardï¼‰, ä½é¢‘å­˜å‚¨ï¼ˆStandard_IAï¼‰å’Œå½’æ¡£å­˜å‚¨ï¼ˆARCHIVEï¼‰ã€‚é»˜è®¤æ˜¯æ ‡å‡†å­˜å‚¨ï¼ˆStandardï¼‰
 		putObjectRequest.setStorageClass(StorageClass.Standard);
 		String urlString = "";
 		try {
 		    PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
-		    // putobjectResult »á·µ»ØÎÄ¼şµÄ etag
+		    // putobjectResult ä¼šè¿”å›æ–‡ä»¶çš„ etag
 		    String etag = putObjectResult.getETag();
 		} catch (CosServiceException e) {
 		    e.printStackTrace();
@@ -89,36 +89,36 @@ public class PhotoUploadServeImpl implements PhotoUploadServe {
 		} finally {
 			//if(localFile.exists()) {localFile.delete();}
 		}
-		// ¹Ø±Õ¿Í»§¶Ë
+		// å…³é—­å®¢æˆ·ç«¯
 		cosClient.shutdown();
 		return "{\"result\":\"ok\",\"url\":\"https://yss-1253784481.cos.ap-shanghai.myqcloud.com/"+key+"\"}";
 	}
 
 	public String uploadAudioToserve(String path) {
-		//ÉÏµ½ÌÚÑ¶ÔÆcdn
+		//ä¸Šåˆ°è…¾è®¯äº‘cdn
 		/**
 		 * */
 		 
-		COSCredentials cred = new BasicCOSCredentials("AKIDHNFuLXiCdojOnweRowoQs78uRjmaFUaQ", "jEUVHo69xVnpa5KJ3XliPpzsVszrTpvr");
-		// ²ÉÓÃÁËĞÂµÄ region Ãû×Ö£¬¿ÉÓÃ region µÄÁĞ±í¿ÉÒÔÔÚ¹ÙÍøÎÄµµÖĞ»ñÈ¡£¬Ò²¿ÉÒÔ²Î¿¼ÏÂÃæµÄ XML SDK ºÍ JSON SDK µÄµØÓò¶ÔÕÕ±í
+		COSCredentials cred = new BasicCOSCredentials("***", "***");
+		// é‡‡ç”¨äº†æ–°çš„ region åå­—ï¼Œå¯ç”¨ region çš„åˆ—è¡¨å¯ä»¥åœ¨å®˜ç½‘æ–‡æ¡£ä¸­è·å–ï¼Œä¹Ÿå¯ä»¥å‚è€ƒä¸‹é¢çš„ XML SDK å’Œ JSON SDK çš„åœ°åŸŸå¯¹ç…§è¡¨
 		ClientConfig clientConfig = new ClientConfig(new Region("ap-shanghai"));
 		COSClient cosClient = new COSClient(cred, clientConfig);
-		// ´æ´¢Í°Ãû³Æ£¬¸ñÊ½Îª£ºBucketName-APPID
+		// å­˜å‚¨æ¡¶åç§°ï¼Œæ ¼å¼ä¸ºï¼šBucketName-APPID
 		String bucketName = "yss-1253784481";
 		String pString = path.replaceAll("\\\\", "/");
 		String[] nameStrings = pString.split("/");
 		String name = UUID.randomUUID().toString();
-		// ÒÔÏÂÊÇÏòÕâ¸ö´æ´¢Í°ÉÏ´«Ò»¸öÎÄ¼şµÄÊ¾Àı
+		// ä»¥ä¸‹æ˜¯å‘è¿™ä¸ªå­˜å‚¨æ¡¶ä¸Šä¼ ä¸€ä¸ªæ–‡ä»¶çš„ç¤ºä¾‹
 		System.err.println(nameStrings[nameStrings.length-1]);
 		String key = "studycs/english/"+nameStrings[nameStrings.length-1];
 		File localFile = new File(path);
 		PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key, localFile);
-		// ÉèÖÃ´æ´¢ÀàĞÍ£º±ê×¼´æ´¢£¨Standard£©, µÍÆµ´æ´¢£¨Standard_IA£©ºÍ¹éµµ´æ´¢£¨ARCHIVE£©¡£Ä¬ÈÏÊÇ±ê×¼´æ´¢£¨Standard£©
+		// è®¾ç½®å­˜å‚¨ç±»å‹ï¼šæ ‡å‡†å­˜å‚¨ï¼ˆStandardï¼‰, ä½é¢‘å­˜å‚¨ï¼ˆStandard_IAï¼‰å’Œå½’æ¡£å­˜å‚¨ï¼ˆARCHIVEï¼‰ã€‚é»˜è®¤æ˜¯æ ‡å‡†å­˜å‚¨ï¼ˆStandardï¼‰
 		putObjectRequest.setStorageClass(StorageClass.Standard);
 		String urlString = "";
 		try {
 		    PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
-		    // putobjectResult »á·µ»ØÎÄ¼şµÄ etag
+		    // putobjectResult ä¼šè¿”å›æ–‡ä»¶çš„ etag
 		    String etag = putObjectResult.getETag();
 		} catch (CosServiceException e) {
 		    e.printStackTrace();
@@ -129,7 +129,7 @@ public class PhotoUploadServeImpl implements PhotoUploadServe {
 		} finally {
 			//if(localFile.exists()) {localFile.delete();}
 		}
-		// ¹Ø±Õ¿Í»§¶Ë
+		// å…³é—­å®¢æˆ·ç«¯
 		cosClient.shutdown();
 		return "{\"result\":\"ok\",\"url\":\"https://yss-1253784481.cos.ap-shanghai.myqcloud.com/"+key+"\"}";
 	}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="z.talent.tengyu.mapper.EnglishListenErrorMapper">
+
+
+	<select id="getEnglishListenErrorByAudioIdAndUserId" resultType="int">
+	    SELECT
+	    	  count(*)
+	    FROM englishlistenerror
+	    WHERE audioid = #{audioid} and userid = #{userid}  and createtime = #{time}
+  	</select>
+  	
+
+	<delete id="DeleteEnglishListenErrorByUuid">
+	    DELETE 
+	    FROM englishlistenerror
+	    WHERE uuid = #{uuid}
+  	</delete>
+  	
+  	
+
+
+	<select id="getEnglishListenErrors" resultType="z.talent.tengyu.bean.EnglishListenError">
+	  SELECT
+	  	 count(word) as wordcount,
+	  	 word
+	  FROM englishlistenerror group by word order by wordcount  desc limit 15 
+	</select>
+
+	
+	 <select id="getEnglishListenErrorCounts" resultType="int">
+	    SELECT
+	      count(*)
+	    FROM englishlistenerror 
+	  </select>
+	
+	  <insert id="insertEnglishListenError" parameterType="z.talent.tengyu.bean.EnglishListenError">
+	    INSERT INTO englishlistenerror
+	      (  word,
+	      	audioid,
+	      	 familarword,
+	          createtime,
+	          uuid,
+	          userid)
+	    VALUES
+	      (#{word},#{audioid},#{familarword}, #{createtime}, #{uuid}, #{userid})
+	  </insert>
+	  
+</mapper>  

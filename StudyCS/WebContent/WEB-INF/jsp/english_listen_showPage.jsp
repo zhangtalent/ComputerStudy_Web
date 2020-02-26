@@ -83,12 +83,12 @@
 			
 			</div>
 			<blockquote class="layui-elem-quote">录音</blockquote>
-			<audio style="margin-left:10px;" src="${data.audiourl}" controls="controls">
+			<audio style="width:80%;margin-left:10px;" src="${data.audiourl}" controls="controls">
 			</audio>
 			
 			<br><br>
-			<blockquote class="layui-elem-quote">请听写</blockquote>
-			<div style="padding:10px;text-align:center;" id="solutionarea">
+			<blockquote class="layui-elem-quote">请听写&nbsp;&nbsp;&nbsp;<b style="color:blue;" onclick="shownexttip()">提示</b></blockquote>
+			<div style="padding:10px;text-align:left;" id="solutionarea">
 				
 			</div>
 			<blockquote class="layui-elem-quote">原文</blockquote>
@@ -103,24 +103,30 @@
 
 	var timepass = 0;
 	var correct = 0;
-	var con = "${data.content.replaceAll("\"","")}";
-	con = con.replace(/\n/g," $enter$ ")
+	var con = "${data.content.replaceAll("\"","").replaceAll("\\r\\n"," #enter# ")}";
+	//con = con.replace(/\n/g," $enter$ ")
 	con = con.replace(/,/g,"")
 	con = con.replace(/\./g,"")
 	con = con.replace(/:/g,"")
-	console.log(con);
+	//console.log(con);
 	var arr = con.split(" ");
 	var len = arr.length;
-	console.log(arr)
+	//console.log(arr)
 	var solutionarea = document.getElementById("solutionarea")
+
+	
+	/*加载答题区*/
 	for(var i = 0;i<len;i++){
 		var value = arr[i];
-		if(value == "$enter$"){solutionarea.innerHTML = solutionarea.innerHTML + "<br>"}
+		if(value == "#enter#"){solutionarea.innerHTML = solutionarea.innerHTML + "<br>"}
 		else{
 			solutionarea.innerHTML = solutionarea.innerHTML +
 				"<input style = 'text-align:center;height:40px;width:70px;border-left-width:0px;border-top-width:0px;border-right-width:0px;border-bottom-color:black' id='word" + i + "'/>&nbsp;&nbsp;&nbsp;";
 		}
 	}
+	
+	
+	/**计算真确率**/
 	var rightlen = 0 ;
 	var wordlen = len;
 	function cal_correct(){
@@ -128,7 +134,7 @@
 		wordlen = len;
 		for(var i = 0;i<len;i++){
 			var value = arr[i];
-			if(value == "$enter$"){wordlen--;}
+			if(value == "#enter#"){wordlen--;}
 			else{
 				var v = document.getElementById("word" + i).value;
 				//console.log(v+"---"+value)
@@ -143,6 +149,44 @@
 	var timeo = self.setInterval("updateData()",60000);
 	
 	var uuid = '${data.uuid}'
+	
+	
+	
+	
+	
+	/**提示**/
+	function shownexttip(){
+		for(var i = 0;i<len;i++){
+			var value = arr[i];
+			if(value == "#enter#"){}
+			else{
+				var v = document.getElementById("word" + i).value;
+				//console.log(v+"---"+value)
+				if(v != value){
+					document.getElementById("word" + i).value=value;
+					document.getElementById("word" + i).style.borderBottomColor = "pink";
+					//
+					$.ajax({ url:'updateerrorword', 
+						type:'post',
+						 data:{audioid:uuid,word:value,familarword:v},
+						 async:false,
+						 success:function (response) {
+						     console.log(response);
+						     var obj =JSON.parse(response);
+						     if(obj.result != "fail"){console.log('update complete')}
+						     else{alert("出错");}
+						      //后台返回的数据。这里给  抓页面元素填上去就OK了
+						 } 
+					})
+					break;
+				}
+			}
+		}
+	}
+	
+	
+	
+	
 	
 	function updateData(){
 			cal_correct();

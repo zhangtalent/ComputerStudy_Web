@@ -26,11 +26,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import z.talent.tengyu.bean.EnglishAudio;
 import z.talent.tengyu.bean.EnglishListenData;
+import z.talent.tengyu.bean.EnglishListenError;
 import z.talent.tengyu.bean.EnglishPassage;
 import z.talent.tengyu.bean.EnglishReadData;
 import z.talent.tengyu.bean.Journal;
 import z.talent.tengyu.mapper.EnglishAudioMapper;
 import z.talent.tengyu.mapper.EnglishListenDataMapper;
+import z.talent.tengyu.mapper.EnglishListenErrorMapper;
 import z.talent.tengyu.mapper.EnglishPassageMapper;
 import z.talent.tengyu.mapper.EnglishReadDataMapper;
 import z.talent.tengyu.mapper.JournalMapper;
@@ -50,6 +52,8 @@ public class EnglishStudyController {
 	
 	@Autowired
 	EnglishAudioMapper englishAudioMapper;
+	@Autowired
+	EnglishListenErrorMapper englishListenErrorMapper;
 
 	@Autowired
 	EnglishPassageMapper englishPassageMapper;
@@ -64,8 +68,10 @@ public class EnglishStudyController {
 		int offset = page*5;
 		ArrayList<EnglishReadData> readdata = englishReadDataMapper.getEnglishReadDatas(offset, 5);
 		ArrayList<EnglishListenData> listenData = englishListenDataMapper.getEnglishListenDatas(offset, 5);
+		ArrayList<EnglishListenError> errorData = englishListenErrorMapper.getEnglishListenErrors();
 		int rlen = readdata.size();
 		int llen =listenData.size();
+		int elen =errorData.size();
 		System.out.println(rlen);
 		if(rlen < 5) {
 			for (int i = rlen; i < 5; i++) {
@@ -77,8 +83,14 @@ public class EnglishStudyController {
 				listenData.add(new EnglishListenData("", 0, "ÎÞ", "", 0, ""));
 			}
 		}
+		if(elen < 15) {
+			for (int i = elen; i < 15; i++) {
+				errorData.add(new EnglishListenError("", "", "", "", "", "", 0));
+			}
+		}
 		model.addAttribute("readdata", readdata);
 		model.addAttribute("listendata", listenData);
+		model.addAttribute("errordata", errorData);
 		model.addAttribute("previous", page+1);
 		model.addAttribute("next", page==0?-1:page-1);
 		return "english_index";
@@ -167,6 +179,21 @@ public class EnglishStudyController {
 			boolean del_ok = englishReadDataMapper.insertEnglishReadData(new EnglishReadData(pageid, time, uuid, "yss033tengyu520", readtime));
 			return del_ok == true ? "{\"result\":\"ok\"}": "{\"result\":\"fail\"}";
 		}
+		
+    }
+	
+	//Ìí¼Ó´íÎóµ¥´Ê
+	@ResponseBody
+	@PostMapping("updateerrorword")
+    public String UpdateErrorWord(@RequestParam("audioid")String audioid,@RequestParam("word")String word,@RequestParam("familarword")String familarword,
+			HttpServletRequest request) {
+		SimpleDateFormat format0 = new SimpleDateFormat("yyyy-MM-dd");
+		String time = format0.format(new Date());
+	
+		String uuid = UUID.randomUUID().toString();
+		boolean del_ok = englishListenErrorMapper.insertEnglishListenError(new EnglishListenError(word, audioid, familarword,time, uuid,"yss033tengyu520" ));
+		return del_ok == true ? "{\"result\":\"ok\"}": "{\"result\":\"fail\"}";
+	
 		
     }
 	

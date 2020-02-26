@@ -5,7 +5,10 @@
 <title>ZhangTalent</title>
 <link rel="stylesheet" href="https://yss-1253784481.cos.ap-shanghai.myqcloud.com/loukong/resource/layui/css/layui.css">
 <script src="https://yss-1253784481.cos.ap-shanghai.myqcloud.com/loukong/resource/layui/layui.js"></script>
-
+<script src="https://yss-1253784481.cos.ap-shanghai.myqcloud.com/html/highcharts-more.js"></script>
+<script src="https://yss-1253784481.cos.ap-shanghai.myqcloud.com/html/exporting.js"></script>
+<script src="https://yss-1253784481.cos.ap-shanghai.myqcloud.com/html/oldie.js"></script>
+<script src="https://yss-1253784481.cos.ap-shanghai.myqcloud.com/html/oldie.src.js"></script>
 <script type="text/javascript" src="https://yss-1253784481.cossh.myqcloud.com/js/jquery.js"></script>
 <script type="text/javascript" src="https://yss-1253784481.cos.ap-shanghai.myqcloud.com/html/highcharts.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -103,7 +106,9 @@
 		  <div  id = "processchartshow" class="layui-col-xs12 layui-col-sm6 layui-col-md4">
 		
 		  </div>
-		  
+		  <div  id = "errordiv" class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+		
+		  </div>
 		</div>
 	        
 			
@@ -181,7 +186,86 @@
 			data: [${listendata.get(4).listentime}, ${listendata.get(3).listentime}, ${listendata.get(2).listentime}, ${listendata.get(1).listentime}, ${listendata.get(0).listentime}]
 		}]
 	});
-	
+	Highcharts.chart('errordiv', {
+		chart: {
+			plotBackgroundColor: null,
+			plotBorderWidth: null,
+			plotShadow: false,
+			type: 'pie'
+		},
+		title: {
+			text: '错误词汇TOP15'
+		},
+		tooltip: {
+			pointFormat: '{series.name}: <b>{point.y}</b>'
+		},
+		plotOptions: {
+			pie: {
+				allowPointSelect: true,
+				cursor: 'pointer',
+				dataLabels: {
+					enabled: true,
+					format: '<b>{point.name}</b>: {point.y}',
+					style: {
+						color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+					}
+				}
+			}
+		},
+		series: [{
+			name: 'Brands',
+			colorByPoint: true,
+			data: [{
+				name: "${errordata.get(14).word}",
+				y: ${errordata.get(14).wordcount}
+			},
+			{
+				name: "${errordata.get(13).word}",
+				y: ${errordata.get(13).wordcount}
+			},{
+				name: "${errordata.get(12).word}",
+				y: ${errordata.get(12).wordcount}
+			},{
+				name: "${errordata.get(11).word}",
+				y: ${errordata.get(11).wordcount}
+			},{
+				name: "${errordata.get(10).word}",
+				y: ${errordata.get(10).wordcount}
+			},{
+				name: "${errordata.get(9).word}",
+				y: ${errordata.get(9).wordcount}
+			},{
+				name: "${errordata.get(8).word}",
+				y: ${errordata.get(8).wordcount}
+			},{
+				name: "${errordata.get(7).word}",
+				y: ${errordata.get(7).wordcount}
+			},{
+				name: "${errordata.get(6).word}",
+				y: ${errordata.get(6).wordcount}
+			},{
+				name: "${errordata.get(5).word}",
+				y: ${errordata.get(5).wordcount}
+			},{
+				name: "${errordata.get(4).word}",
+				y: ${errordata.get(4).wordcount}
+			},{
+				name: "${errordata.get(3).word}",
+				y: ${errordata.get(3).wordcount}
+			},{
+				name: "${errordata.get(2).word}",
+				y: ${errordata.get(2).wordcount}
+			},{
+				name: "${errordata.get(1).word}",
+				y: ${errordata.get(1).wordcount}
+			},{
+				name: "${errordata.get(0).word}",
+				y: ${errordata.get(0).wordcount}
+			}]
+		}]
+	});
+
+
 
 		
 </script>

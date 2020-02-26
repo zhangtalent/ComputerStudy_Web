@@ -54,9 +54,6 @@
 	  	UPDATE journaltype
         SET title = #{title} , keyid = #{keyid}
         WHERE uuid=#{uuid}
-	  
-	  
-	  
 	  </update>
 	
 
